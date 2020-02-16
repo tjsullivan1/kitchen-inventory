@@ -1,7 +1,7 @@
 import os
 
 
-def item_add(item_name: str = None, item_quantity: int = None, item_unit: str = None,
+def create_item(item_name: str = None, item_quantity: int = None, item_unit: str = None,
              item_date_added=None, item_category=None):
     """
     :param item_name:
@@ -12,6 +12,7 @@ def item_add(item_name: str = None, item_quantity: int = None, item_unit: str = 
     :return:
     """
 
+    #TODO: Create better documentation of the data structure. 
     item_dict = {
         'name': item_name,
         'category': item_category,
@@ -52,9 +53,12 @@ if __name__ == '__main__':
     key = os.environ.get('COSMOS_KEY')
     database_name = 'pantry'
     container_name = 'items'
-    document = {"test": "item-new-func-3"}
+
+    #TODO: Get actual date to be inserted upon input
+    item = create_item("Basmati Rice", 22, 'Pounds', 'now', "Dry Goods")
 
     cxn = connect_to_cosmos(endpoint, key)
     link = get_container_link(cxn, database_name, container_name)
-    create_item_in_cosmos(cxn, link, document)
-    print(item_add(3, 2, 'T', 'now'))
+    create_item_in_cosmos(cxn, link, item)
+
+    pass

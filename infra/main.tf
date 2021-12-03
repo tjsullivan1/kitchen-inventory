@@ -183,11 +183,13 @@ resource "azurerm_key_vault_secret" "storage-account-key" {
   name         = "${azurerm_storage_account.ki.name}-key"
   value        = azurerm_storage_account.ki.primary_access_key
   key_vault_id = azurerm_key_vault.ki.id
+  depends_on = [ azurerm_key_vault_access_policy.spn]
 }
 
 resource "azurerm_key_vault_secret" "storage-account-connection-string" {
   name         = "${azurerm_storage_account.ki.name}-connection-string"
   value        = azurerm_storage_account.ki.primary_connection_string
   key_vault_id = azurerm_key_vault.ki.id
+  depends_on = [ azurerm_key_vault_access_policy.spn]
 }
 

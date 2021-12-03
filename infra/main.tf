@@ -76,7 +76,7 @@ resource "azurerm_key_vault_access_policy" "spn" {
   key_vault_id   = azurerm_key_vault.ki.id
   tenant_id      = data.azurerm_client_config.current.tenant_id
   object_id      = var.spn_object_id
-  application_id = var.spn_app_id
+  # application_id = var.spn_app_id
 
   key_permissions = [
     "Backup",

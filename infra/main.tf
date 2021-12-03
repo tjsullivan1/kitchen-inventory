@@ -85,6 +85,13 @@ resource "azurerm_key_vault" "ki" {
   purge_protection_enabled    = false
   enable_rbac_authorization   = true
 
+
+  network_acls {
+    default_action = "Deny"
+    bypass         = "AzureServices"
+  }
+
+
   sku_name = "standard"
 }
 

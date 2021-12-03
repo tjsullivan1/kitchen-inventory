@@ -43,6 +43,7 @@ resource "azurerm_resource_group" "ki" {
 }
 
 resource "azurerm_storage_account" "ki" {
+  #checkov:skip=CKV_AZURE_43:I don't think checkov is able to parse this string interpolated value.
   name                      = "sa${lower(var.disambiguation)}${random_string.suffix.result}"
   resource_group_name       = azurerm_resource_group.ki.name
   location                  = azurerm_resource_group.ki.location

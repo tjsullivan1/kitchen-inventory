@@ -78,7 +78,9 @@ resource "azurerm_key_vault_access_policy" "spn" {
   object_id    = var.spn_object_id
 
   key_permissions    = ["Get"]
-  secret_permissions = ["Get"]
+  secret_permissions = ["Get",
+  "Set",
+  "List"]
 }
 
 resource "azurerm_key_vault_access_policy" "me" {

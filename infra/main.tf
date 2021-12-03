@@ -77,6 +77,7 @@ resource "azurerm_storage_account" "ki" {
 
 resource "azurerm_key_vault" "ki" {
   #checkov:skip=CKV_AZURE_42:This is just a development instance. I don't want to enable purge protection on the Key Vault.
+  #checkov:skip=CKV_AZURE_110:This is just a development instance. I don't want to enable purge protection on the Key Vault.
   name                        = "akv-${var.disambiguation}-${random_string.suffix.result}"
   location                    = azurerm_resource_group.ki.location
   resource_group_name         = azurerm_resource_group.ki.name

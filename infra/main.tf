@@ -68,129 +68,20 @@ resource "azurerm_key_vault" "ki" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
-  enable_rbac_authorization = true
+  enable_rbac_authorization   = true
 
   sku_name = "standard"
-}
-
-resource "azurerm_key_vault_access_policy" "spn" {
-  key_vault_id   = azurerm_key_vault.ki.id
-  tenant_id      = data.azurerm_client_config.current.tenant_id
-  object_id      = var.spn_object_id
-  # application_id = var.spn_app_id
-
-  key_permissions = [
-    "Backup",
-    "Create",
-    "Decrypt",
-    "Delete",
-    "Encrypt",
-    "Get",
-    "Import",
-    "List",
-    "Purge",
-    "Recover",
-    "Restore",
-    "Sign",
-    "UnwrapKey",
-    "Update",
-    "Verify",
-    "WrapKey"
-  ]
-
-  secret_permissions = [
-    "Backup",
-    "Delete",
-    "Get",
-    "List",
-    "Purge",
-    "Recover",
-    "Restore",
-    "Set"
-  ]
-
-  storage_permissions = [
-    "Backup",
-    "Delete",
-    "DeleteSAS",
-    "Get",
-    "GetSAS",
-    "List",
-    "ListSAS",
-    "Purge",
-    "Recover",
-    "RegenerateKey",
-    "Restore",
-    "Set",
-    "SetSAS",
-    "Update"
-  ]
-}
-
-resource "azurerm_key_vault_access_policy" "me" {
-  key_vault_id = azurerm_key_vault.ki.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = var.me_object_id
-
-  key_permissions = [
-    "Backup",
-    "Create",
-    "Decrypt",
-    "Delete",
-    "Encrypt",
-    "Get",
-    "Import",
-    "List",
-    "Purge",
-    "Recover",
-    "Restore",
-    "Sign",
-    "UnwrapKey",
-    "Update",
-    "Verify",
-    "WrapKey"
-  ]
-
-  secret_permissions = [
-    "Backup",
-    "Delete",
-    "Get",
-    "List",
-    "Purge",
-    "Recover",
-    "Restore",
-    "Set"
-  ]
-
-  storage_permissions = [
-    "Backup",
-    "Delete",
-    "DeleteSAS",
-    "Get",
-    "GetSAS",
-    "List",
-    "ListSAS",
-    "Purge",
-    "Recover",
-    "RegenerateKey",
-    "Restore",
-    "Set",
-    "SetSAS",
-    "Update"
-  ]
 }
 
 resource "azurerm_key_vault_secret" "storage-account-key" {
   name         = "${azurerm_storage_account.ki.name}-key"
   value        = azurerm_storage_account.ki.primary_access_key
   key_vault_id = azurerm_key_vault.ki.id
-  depends_on = [ azurerm_key_vault_access_policy.spn]
 }
 
 resource "azurerm_key_vault_secret" "storage-account-connection-string" {
   name         = "${azurerm_storage_account.ki.name}-connection-string"
   value        = azurerm_storage_account.ki.primary_connection_string
   key_vault_id = azurerm_key_vault.ki.id
-  depends_on = [ azurerm_key_vault_access_policy.spn]
 }
 

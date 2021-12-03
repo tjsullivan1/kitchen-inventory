@@ -129,3 +129,4 @@ resource "azurerm_key_vault_secret" "storage-account-connection-string" {
   value        = azurerm_storage_account.ki.primary_connection_string
   key_vault_id = azurerm_key_vault.ki.id
 }
+

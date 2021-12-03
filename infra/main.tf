@@ -77,10 +77,52 @@ resource "azurerm_key_vault_access_policy" "spn" {
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = var.spn_object_id
 
-  key_permissions    = ["Get"]
-  secret_permissions = ["Get",
-  "Set",
-  "List"]
+  key_permissions = [
+    "Backup",
+    "Create",
+    "Decrypt",
+    "Delete",
+    "Encrypt",
+    "Get",
+    "Import",
+    "List",
+    "Purge",
+    "Recover",
+    "Restore",
+    "Sign",
+    "UnwrapKey",
+    "Update",
+    "Verify",
+    "WrapKey"
+  ]
+
+  secret_permissions = [
+    "Backup",
+    "Delete",
+    "Get",
+    "List",
+    "Purge",
+    "Recover",
+    "Restore",
+    "Set"
+  ]
+
+  storage_permissions = [
+    "Backup",
+    "Delete",
+    "DeleteSAS",
+    "Get",
+    "GetSAS",
+    "List",
+    "ListSAS",
+    "Purge",
+    "Recover",
+    "RegenerateKey",
+    "Restore",
+    "Set",
+    "SetSAS",
+    "Update"
+  ]
 }
 
 resource "azurerm_key_vault_access_policy" "me" {

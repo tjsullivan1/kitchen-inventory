@@ -1,0 +1,2 @@
+## Terraform
+Please note that this deployment will require a Service Principal. That service principal will need to have permissions to create a resource group in the subscription and then key vault permissions assigned in RBAC as well so that it can add the secrets.

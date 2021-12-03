@@ -9,3 +9,5 @@ tags = {
 
 disambiguation = "ki"
 location       = "eastus"
+spn_object_id  = "d03b4560-7a66-4425-959f-575f479ae6e0"
+me_object_id   = "b18aa732-3526-48a9-9787-a9378460dcc3"

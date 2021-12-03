@@ -10,6 +10,12 @@ terraform {
       version = "~> 3.1.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "tjs-payg-central-services-rg"
+    storage_account_name = "tjspaygcentservicesblob"
+    container_name       = "tfstate"
+    key                  = "ki/terraform.tfstate"
+}
 }
 
 provider "azurerm" {

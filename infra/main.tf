@@ -62,6 +62,16 @@ resource "azurerm_storage_account" "ki" {
     last_access_time_enabled = true
   }
 
+  queue_properties {
+    logging {
+      delete             = true
+      write              = true
+      read               = true
+      version            = "1.0"
+      retent_policy_days = 3
+    }
+  }
+
   tags = var.tags
 }
 

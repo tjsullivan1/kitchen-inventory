@@ -24,3 +24,8 @@ variable "spn_object_id" {
   type        = string
   description = "The Azure AD Object ID for the service principal user deploying the infrastructure"
 }
+
+variable "spn_app_id" {
+  type        = string
+  description = "The Azure AD Application ID for the service principal user deploying the infrastructure"
+}

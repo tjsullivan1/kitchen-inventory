@@ -15,7 +15,7 @@ terraform {
     storage_account_name = "tjspaygcentservicesblob"
     container_name       = "tfstate"
     key                  = "ki/terraform.tfstate"
-}
+  }
 }
 
 provider "azurerm" {
@@ -68,60 +68,9 @@ resource "azurerm_key_vault" "ki" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
+  enable_rbac_authorization   = true
 
   sku_name = "standard"
-
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
-
-    key_permissions = [
-      "Backup",
-      "Create",
-      "Decrypt",
-      "Delete",
-      "Encrypt",
-      "Get",
-      "Import",
-      "List",
-      "Purge",
-      "Recover",
-      "Restore",
-      "Sign",
-      "UnwrapKey",
-      "Update",
-      "Verify",
-      "WrapKey"
-    ]
-
-    secret_permissions = [
-      "Backup",
-      "Delete",
-      "Get",
-      "List",
-      "Purge",
-      "Recover",
-      "Restore",
-      "Set"
-    ]
-
-    storage_permissions = [
-      "Backup",
-      "Delete",
-      "DeleteSAS",
-      "Get",
-      "GetSAS",
-      "List",
-      "ListSAS",
-      "Purge",
-      "Recover",
-      "RegenerateKey",
-      "Restore",
-      "Set",
-      "SetSAS",
-      "Update"
-    ]
-  }
 }
 
 resource "azurerm_key_vault_secret" "storage-account-key" {

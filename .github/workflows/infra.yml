@@ -50,4 +50,4 @@ jobs:
         
       # Runs a single command using the runners shell
       - name: terraform apply
-        run: terraform apply -plan out.plan --auto-approve
+        run: terraform apply out.plan

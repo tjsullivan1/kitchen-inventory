@@ -64,11 +64,11 @@ resource "azurerm_storage_account" "ki" {
 
   queue_properties {
     logging {
-      delete             = true
-      write              = true
-      read               = true
-      version            = "1.0"
-      retent_policy_days = 3
+      delete                = true
+      write                 = true
+      read                  = true
+      version               = "1.0"
+      retention_policy_days = 3
     }
   }
 
@@ -102,6 +102,7 @@ resource "azurerm_key_vault_secret" "storage-account-key" {
   value           = azurerm_storage_account.ki.primary_access_key
   key_vault_id    = azurerm_key_vault.ki.id
   expiration_date = "2022-06-03T00:00:00Z"
+  content_type    = "text/plain"
 }
 
 resource "azurerm_key_vault_secret" "storage-account-connection-string" {
@@ -109,5 +110,6 @@ resource "azurerm_key_vault_secret" "storage-account-connection-string" {
   value           = azurerm_storage_account.ki.primary_connection_string
   key_vault_id    = azurerm_key_vault.ki.id
   expiration_date = "2022-06-03T00:00:00Z"
+  content_type    = "text/plain"
 }
 

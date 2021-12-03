@@ -52,6 +52,10 @@ resource "azurerm_storage_account" "ki" {
   min_tls_version           = "TLS1_2"
   enable_https_traffic_only = true
 
+  network_rules {
+    default_action = "Deny"
+  }
+
   blob_properties {
     versioning_enabled       = true
     change_feed_enabled      = true

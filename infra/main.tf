@@ -95,11 +95,12 @@ resource "azurerm_key_vault" "ki" {
   purge_protection_enabled    = false
   enable_rbac_authorization   = true
 
-
-  network_acls {
-    default_action = "Deny"
-    bypass         = "AzureServices"
-  }
+  #checkov:skip=CKV_AZURE_109:With GitHub Actions hosted runners this section breaks terraform, since we don't have a list of all IPs for GitHub. You can get these by calling an API, but GitHub doesn't recommend using those for an allow list.
+  #TODO: Figure out if I should be using self-hosted runners.
+  # network_acls {
+  #   default_action = "Deny"
+  #   bypass         = "AzureServices"
+  # }
 
 
   sku_name = "standard"

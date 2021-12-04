@@ -47,6 +47,7 @@ resource "azurerm_storage_account" "ki" {
   #checkov:skip=CKV2_AZURE_1:I don't want to use customer managed keys.
   #checkov:skip=CKV2_AZURE_18:I don't want to use customer managed keys.
 
+  # TODO: More research is needed on this one.
   #checkov:skip=CKV_AZURE_43:I don't think checkov is able to parse this string interpolated value.
   name                      = "sa${lower(var.disambiguation)}${random_string.suffix.result}"
   resource_group_name       = azurerm_resource_group.ki.name

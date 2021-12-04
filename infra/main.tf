@@ -43,7 +43,7 @@ resource "azurerm_resource_group" "ki" {
 }
 
 resource "azurerm_storage_account" "ki" {
-  
+  # TODO: Determine whether or not I need to document these design decisions somewhere.
   #checkov:skip=CKV2_AZURE_1:I don't want to use customer managed keys.
   #checkov:skip=CKV2_AZURE_18:I don't want to use customer managed keys.
 

@@ -48,3 +48,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: terraform plan
         run: terraform plan
+
+# TODO: add terraform apply & destroy if env branches are pushed to (instead of feature/documentation)

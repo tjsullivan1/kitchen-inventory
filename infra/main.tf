@@ -43,14 +43,19 @@ resource "azurerm_resource_group" "ki" {
 }
 
 resource "azurerm_storage_account" "ki" {
-  #checkov:skip=CKV_AZURE_43:I don't think checkov is able to parse this string interpolated value.
+  # TODO: Determine whether or not I need to document these design decisions somewhere.
   #checkov:skip=CKV2_AZURE_1:I don't want to use customer managed keys.
   #checkov:skip=CKV2_AZURE_18:I don't want to use customer managed keys.
-  name                      = "sa${lower(var.disambiguation)}${random_string.suffix.result}"
-  resource_group_name       = azurerm_resource_group.ki.name
-  location                  = azurerm_resource_group.ki.location
-  account_tier              = "Standard"
-  account_replication_type  = "LRS"
+
+  # TODO: More research is needed on this one.
+  #checkov:skip=CKV_AZURE_43:I don't think checkov is able to parse this string interpolated value.
+  name                     = "sa${lower(var.disambiguation)}${random_string.suffix.result}"
+  resource_group_name      = azurerm_resource_group.ki.name
+  location                 = azurerm_resource_group.ki.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  #checkov:skip=CKV2_AZURE_8:This check is failing for the container, but the log container isn't explicitly defined. This setting should control that access.
+  #TODO: At a later date, add explicit container definition for logs and ensure set properly.
   allow_blob_public_access  = false
   min_tls_version           = "TLS1_2"
   enable_https_traffic_only = true
@@ -73,6 +78,20 @@ resource "azurerm_storage_account" "ki" {
       version               = "1.0"
       retention_policy_days = 3
     }
+
+    hour_metrics {
+      enabled               = true
+      include_apis          = true
+      version               = "1.0"
+      retention_policy_days = 3
+    }
+
+    minute_metrics {
+      enabled               = true
+      include_apis          = true
+      version               = "1.0"
+      retention_policy_days = 3
+    }
   }
 
   tags = var.tags
@@ -90,11 +109,12 @@ resource "azurerm_key_vault" "ki" {
   purge_protection_enabled    = false
   enable_rbac_authorization   = true
 
-
-  network_acls {
-    default_action = "Deny"
-    bypass         = "AzureServices"
-  }
+  #checkov:skip=CKV_AZURE_109:With GitHub Actions hosted runners this section breaks terraform, since we don't have a list of all IPs for GitHub. You can get these by calling an API, but GitHub doesn't recommend using those for an allow list.
+  #TODO: Figure out if I should be using self-hosted runners.
+  # network_acls {
+  #   default_action = "Deny"
+  #   bypass         = "AzureServices"
+  # }
 
 
   sku_name = "standard"

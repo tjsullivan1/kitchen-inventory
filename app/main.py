@@ -1,70 +1,67 @@
-import os
+import json
+from typing import List
+
+from models import PantryItem
 
 
-def create_item(
-    item_name: str = None,
-    item_quantity: int = None,
-    item_unit: str = None,
-    item_date_added=None,
-    item_category=None,
-):
-    """
-    :param item_name:
-    :param item_quantity:
-    :param item_unit:
-    :param item_date_added:
-    :param item_category
-    :return:
-    """
+class Pantry:
+    def __init__(self, filename):
+        self.items = []
+        self.filename = filename
 
-    # TODO: Create better documentation of the data structure.
-    item_dict = {
-        "name": item_name,
-        "category": item_category,
-        "amount": item_quantity,
-        "unit": item_unit,
-        "date_added": item_date_added,
-    }
+    def create_item(self, item: PantryItem):
+        self.items.append(item)
 
-    return item_dict
+    def read_items(self) -> List[PantryItem]:
+        return self.items
 
+    def update_item(self, item: PantryItem):
+        for i, existing_item in enumerate(self.items):
+            if existing_item.id == item.id:
+                self.items[i] = item
+                return
 
-def connect_to_cosmos(endpoint, key):
-    from azure.cosmos.cosmos_client import CosmosClient
+    def delete_item(self, item_id: str):
+        for i, existing_item in enumerate(self.items):
+            if existing_item.id == item_id:
+                del self.items[i]
+                return
 
-    # Initialize the Cosmos client
-    auth = {"masterKey": key}
+    # Create functions with enter and exit to make this a context manager
+    def __enter__(self):
+        self.load()
+        return self
 
-    client = CosmosClient(endpoint, auth)
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.dump()
 
-    return client
+    # define an equality function that returns True if the config dictionaries are equal
+    def __eq__(self, other):
+        try:
+            return self.config == other.config
+        except AttributeError:
+            return False
 
+    # Define a function that compares the keys of the config dictionaries using the __gt__ function
+    def __gt__(self, other):
+        return self.config.keys() > other.config.keys()
 
-def get_container_link(client, db, container):
-    from azure.cosmos.database import Database
+    # Define a function that compares the keys of the config dictionaries using the __lt__ function
+    def __lt__(self, other):
+        return self.config.keys() < other.config.keys()
 
-    database = Database(client, db)
-    container = database.get_container(container)
+    # Define a function that compares the keys of the config dictionaries using the __ge__ function
+    def __ge__(self, other):
+        return self.config.keys() >= other.config.keys()
 
-    return container.container_link
+    # Define a function that compares the keys of the config dictionaries using the __le__ function
+    def __le__(self, other):
+        return self.config.keys() <= other.config.keys()
 
+    def load(self):
+        with open(self.filename, "r") as file:
+            self.items = json.load(file)
 
-def create_item_in_cosmos(client, container_link, document):
-    client.CreateItem(database_or_Container_link=container_link, document=document)
-    pass
-
-
-if __name__ == "__main__":
-    endpoint = os.environ.get("COSMOS_ENDPOINT")
-    key = os.environ.get("COSMOS_KEY")
-    database_name = "pantry"
-    container_name = "items"
-
-    # TODO: Get actual date to be inserted upon input
-    item = create_item("Basmati Rice", 22, "Pounds", "now", "Dry Goods")
-
-    cxn = connect_to_cosmos(endpoint, key)
-    link = get_container_link(cxn, database_name, container_name)
-    create_item_in_cosmos(cxn, link, item)
-
-    pass
+    def dump(self):
+        with open(self.filename, "w") as file:
+            json.dump(self.items, file, indent=4)

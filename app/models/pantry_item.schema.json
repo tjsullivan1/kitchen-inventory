@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Pantry Items",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "string",
+                "description": "A unique identifier for the pantry item",
+                "format": "uuid"
+            },
+            "name": {
+                "type": "string",
+                "description": "The name of the pantry item"
+            },
+            "amount": {
+                "type": "number",
+                "description": "The amount of the pantry item in a given unit (e.g. grams, ounces, etc.)"
+            },
+            "unit": {
+                "type": "string",
+                "description": "The unit of measurement for the pantry item (e.g. grams, ounces, etc.)"
+            },
+            "notes": {
+                "type": "string",
+                "description": "Any additional notes or comments about the pantry item"
+            },
+            "datePurchased": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The date when the pantry item was purchased"
+            },
+            "expirationDate": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The date when the pantry item will expire"
+            },
+            "storageMethod": {
+                "type": "string",
+                "description": "The recommended method for storing the pantry item (e.g. refrigerate, store in a cool, dark place, etc.)"
+            },
+            "purchasePrice": {
+                "type": "number",
+                "description": "The price of the pantry item at the time of purchase (in USD)"
+            },
+            "storageLocation": {
+                "type": "string",
+                "description": "The location where the pantry item is stored"
+            },
+            "purchaseLocation": {
+                "type": "string",
+                "description": "The location where the pantry item was purchased"
+            }
+        },
+        "required": ["id", "name", "amount", "unit"],
+        "additionalProperties": false
+    }
+}

@@ -1,0 +1,28 @@
+[
+    {
+        "id": "84456721-b505-4bb9-9a12-b056534ab09c",
+        "name": "Rice",
+        "amount": 500,
+        "unit": "grams",
+        "notes": "Basmati rice",
+        "datePurchased": "2023-01-25T00:00:00Z",
+        "expirationDate": "2023-07-25T00:00:00Z",
+        "storageMethod": "Store in a cool, dry place",
+        "purchasePrice": 3.5,
+        "storageLocation": "Pantry shelf 1",
+        "purchaseLocation": "Supermarket A"
+    },
+    {
+        "id": "5a966721-b505-4bb9-9a12-b056534ab09c",
+        "name": "Tomatoes",
+        "amount": 4,
+        "unit": "pieces",
+        "notes": "Roma tomatoes",
+        "datePurchased": "2023-01-25T00:00:00Z",
+        "expirationDate": "2023-01-28T00:00:00Z",
+        "storageMethod": "Store in a cool, dry place",
+        "purchasePrice": 1.25,
+        "storageLocation": "Pantry shelf 1",
+        "purchaseLocation": "Supermarket A"
+    }
+]

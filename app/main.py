@@ -1,8 +1,13 @@
 import os
 
 
-def create_item(item_name: str = None, item_quantity: int = None, item_unit: str = None,
-             item_date_added=None, item_category=None):
+def create_item(
+    item_name: str = None,
+    item_quantity: int = None,
+    item_unit: str = None,
+    item_date_added=None,
+    item_category=None,
+):
     """
     :param item_name:
     :param item_quantity:
@@ -12,13 +17,13 @@ def create_item(item_name: str = None, item_quantity: int = None, item_unit: str
     :return:
     """
 
-    #TODO: Create better documentation of the data structure. 
+    # TODO: Create better documentation of the data structure.
     item_dict = {
-        'name': item_name,
-        'category': item_category,
-        'amount': item_quantity,
-        'unit': item_unit,
-        'date_added': item_date_added
+        "name": item_name,
+        "category": item_category,
+        "amount": item_quantity,
+        "unit": item_unit,
+        "date_added": item_date_added,
     }
 
     return item_dict
@@ -28,7 +33,7 @@ def connect_to_cosmos(endpoint, key):
     from azure.cosmos.cosmos_client import CosmosClient
 
     # Initialize the Cosmos client
-    auth = {'masterKey': key}
+    auth = {"masterKey": key}
 
     client = CosmosClient(endpoint, auth)
 
@@ -37,6 +42,7 @@ def connect_to_cosmos(endpoint, key):
 
 def get_container_link(client, db, container):
     from azure.cosmos.database import Database
+
     database = Database(client, db)
     container = database.get_container(container)
 
@@ -48,14 +54,14 @@ def create_item_in_cosmos(client, container_link, document):
     pass
 
 
-if __name__ == '__main__':
-    endpoint = os.environ.get('COSMOS_ENDPOINT')
-    key = os.environ.get('COSMOS_KEY')
-    database_name = 'pantry'
-    container_name = 'items'
+if __name__ == "__main__":
+    endpoint = os.environ.get("COSMOS_ENDPOINT")
+    key = os.environ.get("COSMOS_KEY")
+    database_name = "pantry"
+    container_name = "items"
 
-    #TODO: Get actual date to be inserted upon input
-    item = create_item("Basmati Rice", 22, 'Pounds', 'now', "Dry Goods")
+    # TODO: Get actual date to be inserted upon input
+    item = create_item("Basmati Rice", 22, "Pounds", "now", "Dry Goods")
 
     cxn = connect_to_cosmos(endpoint, key)
     link = get_container_link(cxn, database_name, container_name)

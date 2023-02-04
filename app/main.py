@@ -1,7 +1,8 @@
 import json
-from typing import List
 
 from models import PantryItem
+
+# from typing import List
 
 
 class Pantry:
@@ -12,7 +13,7 @@ class Pantry:
     def create_item(self, item: PantryItem):
         self.items.append(item)
 
-    def read_items(self) -> List[PantryItem]:
+    def read_items(self):
         return self.items
 
     def update_item(self, item: PantryItem):

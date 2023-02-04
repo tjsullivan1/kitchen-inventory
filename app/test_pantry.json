@@ -1,0 +1,15 @@
+[
+    {
+        "name": "apple",
+        "amount": 3.0,
+        "unit": "kg",
+        "id": "ea589644-d96d-4610-a495-dc6ee19f104e",
+        "notes": null,
+        "date_purchased": "2023-02-04 22:28:44.669480",
+        "expiration_date": null,
+        "storage_method": null,
+        "purchase_price": null,
+        "storage_location": null,
+        "purchase_location": null
+    }
+]

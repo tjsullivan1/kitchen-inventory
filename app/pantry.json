@@ -1,0 +1,28 @@
+[
+    {
+        "name": "Eggs",
+        "amount": 12,
+        "unit": "unit",
+        "id": "a3ff064b-82c7-4078-92b5-19b5b43a79c0",
+        "notes": null,
+        "date_purchased": "2023-02-04 22:28:44.672173",
+        "expiration_date": null,
+        "storage_method": null,
+        "purchase_price": null,
+        "storage_location": null,
+        "purchase_location": null
+    },
+    {
+        "name": "Bread",
+        "amount": 1,
+        "unit": "loaf",
+        "id": "fadf78e0-5415-468d-beb4-810c49a23364",
+        "notes": null,
+        "date_purchased": "2023-02-04 22:28:44.672184",
+        "expiration_date": null,
+        "storage_method": null,
+        "purchase_price": null,
+        "storage_location": null,
+        "purchase_location": null
+    }
+]

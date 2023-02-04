@@ -1,3 +1,4 @@
 azure.cosmos
 pydantic
+pytest
 requests
